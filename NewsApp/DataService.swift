@@ -13,7 +13,7 @@ class DataService {
     private init(){}
     
     static let shared = DataService()
-   
+  
     
     func getData(completion: @escaping ([[String: Any]]) -> Void) {
         
@@ -27,28 +27,15 @@ class DataService {
             if error != nil { print("GET Request: Communication error: \(error!)") }
             if data != nil {
                 do {
-                    
-                    let resultObject = try (JSONSerialization.jsonObject(with: data!, options: []))
+                    let resultObject = try(JSONSerialization.jsonObject(with: data!, options: []))
                     let result = resultObject as! [String: Any]
-                    //print (result)
-                    let articles = result["articles"] as! [[String: Any]]
-                    //print (articles)
-                    /*
-                    for dic in articles{
-                        guard let title = dic["title"] as? String else { return }
-                        guard let description = dic["description"] as? String else { return }
-                        guard let url = dic["url"] as? String else { return }
-                        guard let urlToImage = dic["urlToImage"] as? String else { return }
-                        guard let publishedAt = dic["publishedAt"] as? String else { return }
-                        print(title, description, url, urlToImage, publishedAt) //Output
-                        //print(title)
+                    var resultArticles = [[String: Any]]()
+                    if (result["articles"] != nil) {
+                        resultArticles = result["articles"] as! [[String: Any]]
                     }
- */
-                        DispatchQueue.main.async(execute: {
-                        
-                       // print( articles )
-                        completion(articles)
-                        })
+                    DispatchQueue.main.async(execute: {
+                    completion(resultArticles)
+                    })
                 } catch {
                     DispatchQueue.main.async(execute: {
                         print("Unable to parse JSON response")
@@ -60,9 +47,10 @@ class DataService {
                 })
             }
         }).resume()
-
         
     }
+    
+    
     
 }
 

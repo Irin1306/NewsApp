@@ -9,33 +9,32 @@
 import UIKit
 
 
-class tableViewCell: UITableViewCell {
-    
+
+class NewsTableViewCell: UITableViewCell {
+   
     
     @IBOutlet weak var cellImageView: UIImageView!
-    @IBOutlet weak var titleTextLabel: UILabel!
-    @IBOutlet weak var descriptionTextLabel: UILabel!
-    @IBOutlet weak var dateTextLabel: UILabel!
+    
+     
+    @IBOutlet weak var cellPublishedAtTextLabel: UILabel!
+    
+    
+    @IBOutlet weak var cellTitleTextLabel: UILabel!
+    
+    @IBOutlet weak var cellDescriptionTextLabel: UILabel!
 }
 
 class TableViewController: UITableViewController {
-
+    
+    var articles = [[String: Any]]()
    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.rowHeight = 150
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor.groupTableViewBackground
-        
-        DataService.shared.getData{(data) in
-            
-            do {
-                print("Yes....\(data)")
-            } catch {
-                print(error)
-            }
-        }
-        
+       
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -47,9 +46,15 @@ class TableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-      
+        DataService.shared.getData{ (data) in
+           
+           self.articles = data            
+           self.tableView.reloadData()
+       
+        }
         
     }
+        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -64,15 +69,36 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return articles.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            as! tableViewCell
+            as! NewsTableViewCell
+        
         // Configure the cell...
+        let currentItem = articles[indexPath.row]
+        var image = UIImage()
 
+        if let imageUrl = currentItem["urlToImage"] {
+            let url = URL(string: imageUrl as! String)
+            let data = try? Data(contentsOf: url!)
+            image = UIImage(data: data!)!
+            
+        } else {
+            //image = UIImage(named: "emptyImage")!
+            
+        }
+        cell.cellImageView?.image = image
+        cell.cellTitleTextLabel?.text = currentItem["title"] as? String
+        cell.cellDescriptionTextLabel?.text = currentItem["description"] as? String
+        if let date = currentItem["publishedAt"] {
+            let str = date as! String
+            let substr = String(str[..<str.index(str.startIndex, offsetBy: 10)])
+            cell.cellPublishedAtTextLabel?.text = substr
+        }
+        
         return cell
     }
     
@@ -120,6 +146,9 @@ class TableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    */ 
+    
+    
+    
 
 }
