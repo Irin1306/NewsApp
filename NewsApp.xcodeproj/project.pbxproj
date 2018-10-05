@@ -14,6 +14,7 @@
 		CE18AB052164FDB2008861A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE18AB032164FDB2008861A2 /* LaunchScreen.storyboard */; };
 		CE18AB0D216509D7008861A2 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE18AB0C216509D7008861A2 /* TableViewController.swift */; };
 		CE18AB0F21651145008861A2 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE18AB0E21651145008861A2 /* DataService.swift */; };
+		CEC3B00B216768F2000B650B /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC3B00A216768F2000B650B /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		CE18AB062164FDB2008861A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE18AB0C216509D7008861A2 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		CE18AB0E21651145008861A2 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		CEC3B00A216768F2000B650B /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				CE18AB062164FDB2008861A2 /* Info.plist */,
 				CE18AAFE2164FDB1008861A2 /* NewsApp.xcdatamodeld */,
 				CE18AB0C216509D7008861A2 /* TableViewController.swift */,
+				CEC3B00A216768F2000B650B /* WebViewController.swift */,
 			);
 			path = NewsApp;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 				CE18AAF82164FDB1008861A2 /* AppDelegate.swift in Sources */,
 				CE18AB0D216509D7008861A2 /* TableViewController.swift in Sources */,
 				CE18AB002164FDB1008861A2 /* NewsApp.xcdatamodeld in Sources */,
+				CEC3B00B216768F2000B650B /* WebViewController.swift in Sources */,
 				CE18AB0F21651145008861A2 /* DataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -92,7 +92,10 @@ class TableViewController: UITableViewController {
         }
         cell.cellImageView?.image = image
         cell.cellTitleTextLabel?.text = currentItem["title"] as? String
-        cell.cellDescriptionTextLabel?.text = currentItem["description"] as? String
+        if let date = currentItem["description"] {
+            let space: String = "\t"
+        cell.cellDescriptionTextLabel?.text = space + (date as! String)
+        }
         if let date = currentItem["publishedAt"] {
             let str = date as! String
             let substr = String(str[..<str.index(str.startIndex, offsetBy: 10)])
@@ -102,7 +105,19 @@ class TableViewController: UITableViewController {
         return cell
     }
     
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let currentItem = articles[indexPath.row]
+        
+        if let path = currentItem["url"] {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let webvc = storyboard.instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+            webvc.urlpath = path as! String
+            navigationController?.pushViewController(webvc, animated: true)
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
